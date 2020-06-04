@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace H6.Common.Threading
+namespace H6.Threading
 {
   public sealed class LockerManager
   {
