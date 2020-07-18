@@ -5,10 +5,6 @@ using System.Text;
 
 namespace H6.Database.Entities
 {
-  public interface Ix
-  {
-  }
-
   /// <summary>
   /// Database entity
   /// </summary>
@@ -17,7 +13,7 @@ namespace H6.Database.Entities
   public abstract class DBEntityBase<TEntity>
     where TEntity : class
   {
-    internal abstract void OnModelCreating(ModelBuilder modelBuilder);
+    public abstract void OnModelCreating(ModelBuilder modelBuilder);
   }
 
   /// <summary>
