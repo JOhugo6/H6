@@ -6,6 +6,8 @@
     <PackageId>H6.Common</PackageId>
     <Version>1.0.0</Version>
     <Authors>Jiří Oulehla</Authors>
+    <PackageLicenseExpression>https://github.com/JOhugo6/H6/blob/master/LICENSE</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/JOhugo6/H6</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
