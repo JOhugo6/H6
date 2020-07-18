@@ -2,16 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    
-    <PackageId>H6.Common</PackageId>
-    <Version>1.0.2</Version>
-    <Authors>Jiří Oulehla</Authors>
-    <PackageLicenseExpression></PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/JOhugo6/H6</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Authors>Jiří Oulehla</Authors>
+    <Company>Jiří Oulehla</Company>
+    <Product>H6.Database</Product>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/JOhugo6/H6</RepositoryUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="H6.Common" Version="1.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="System.Text.Json" Version="4.7.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE">

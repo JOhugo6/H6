@@ -1,18 +1,23 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace H6.Common.Database
+namespace H6.Database.Entities
 {
+  public interface Ix
+  {
+  }
+
   /// <summary>
   /// Database entity
   /// </summary>
   /// <typeparam name="TEntity"></typeparam>
   [Serializable]
-  public class DBEntityBase<TEntity>
+  public abstract class DBEntityBase<TEntity>
     where TEntity : class
   {
-
+    internal abstract void OnModelCreating(ModelBuilder modelBuilder);
   }
 
   /// <summary>
@@ -21,7 +26,7 @@ namespace H6.Common.Database
   /// <typeparam name="TPrimaryKey"></typeparam>
   /// <typeparam name="TEntity"></typeparam>
   [Serializable]
-  public class DBEntityBase<TPrimaryKey, TEntity> : DBEntityBase<TEntity>, IPrimaryKeyAsId<TPrimaryKey>
+  public abstract class DBEntityBase<TPrimaryKey, TEntity> : DBEntityBase<TEntity>, IPrimaryKeyAsId<TPrimaryKey>
     where TEntity : DBEntityBase<TPrimaryKey, TEntity>
     where TPrimaryKey : IComparable
   {
