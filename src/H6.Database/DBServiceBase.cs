@@ -8,11 +8,11 @@ namespace H6.Database
 {
   public class DBServiceBase<TDBContext> : ServiceBase where TDBContext : DBModelContext
   {
-    private readonly IDBContextFactory<TDBContext> _dBContextFactory;
+    protected readonly IDBContextFactory<TDBContext> DBContextFactory;
 
     public DBServiceBase(ILogger logger, IDBContextFactory<TDBContext> dBContextFactory) : base(logger)
     {
-      _dBContextFactory = dBContextFactory;
+      DBContextFactory = dBContextFactory;
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace H6.Database
     {
       return TryReturn(() =>
       {
-        using (var dbContext = _dBContextFactory.EnsureDBContext())
+        using (var dbContext = DBContextFactory.EnsureDBContext())
         {
           return func(dbContext);
         }
@@ -43,7 +43,7 @@ namespace H6.Database
     {
       return TryReturn(() =>
       {
-        using (var dbContext = _dBContextFactory.EnsureDBContext())
+        using (var dbContext = DBContextFactory.EnsureDBContext())
         {
           return func(dbContext);
         }
@@ -60,7 +60,7 @@ namespace H6.Database
     {
       return TryReturn(() =>
       {
-        using (var dbContext = _dBContextFactory.EnsureDBContext())
+        using (var dbContext = DBContextFactory.EnsureDBContext())
         {
           using (var transaction = dbContext.Database.CurrentTransaction == null ? dbContext.Database.BeginTransaction() : null)
           {
@@ -83,7 +83,7 @@ namespace H6.Database
     {
       return TryReturn(() =>
       {
-        using (var dbContext = _dBContextFactory.EnsureDBContext())
+        using (var dbContext = DBContextFactory.EnsureDBContext())
         {
           using (var transaction = dbContext.Database.CurrentTransaction == null ? dbContext.Database.BeginTransaction() : null)
           {
