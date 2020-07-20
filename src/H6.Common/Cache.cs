@@ -15,7 +15,7 @@ namespace H6.Common
 
     private const int DefaultCacheTimeout = 60;
 
-    private Cache (IMemoryCache memoryCache)
+    public Cache (IMemoryCache memoryCache)
     {
       _memoryCache = memoryCache;
     }
