@@ -89,7 +89,7 @@ namespace H6.Database
       {
         if (_allMethodsOnModelCreating.TryGetValue(key, out Tuple<object, MethodInfo> method)) return method;
 
-        var mi = type.GetMethod("OnModelCreating", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+        var mi = type.GetMethod("OnModelCreating", BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy | BindingFlags.DeclaredOnly);
         
         var cnti = type.GetConstructor(Type.EmptyTypes);
         var o = cnti.Invoke(new object[] { });
