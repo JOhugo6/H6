@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     
     <PackageId>H6.Common</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>Jiří Oulehla</Authors>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/JOhugo6/H6</RepositoryUrl>
@@ -18,6 +18,10 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.6" />
   </ItemGroup>
 
 </Project>
