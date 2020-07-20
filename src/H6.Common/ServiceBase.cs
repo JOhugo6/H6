@@ -7,11 +7,11 @@ namespace H6.Common
 {
   public class ServiceBase
   {
-    private readonly ILogger _logger;
+    protected readonly ILogger Logger;
 
     public ServiceBase(ILogger logger)
     {
-      _logger = logger;
+      Logger = logger;
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ namespace H6.Common
       {
         var stackTrace = new System.Diagnostics.StackTrace();
         var method = stackTrace.GetFrame(1).GetMethod();
-        _logger.LogError(ex, $"Error in method {method.Name}. Method Info: {methodInfo}");
+        Logger.LogError(ex, $"Error in method {method.Name}. Method Info: {methodInfo}");
         return MethodResultFactory.CreateInternalError();
       }
     }
@@ -52,7 +52,7 @@ namespace H6.Common
       {
         var stackTrace = new System.Diagnostics.StackTrace();
         var method = stackTrace.GetFrame(1).GetMethod();
-        _logger.LogError(ex, $"Error in method {method.Name}. Method Info: {methodInfo}");
+        Logger.LogError(ex, $"Error in method {method.Name}. Method Info: {methodInfo}");
         return MethodResultFactory.CreateInternalError<TResult>();
       }
     }
