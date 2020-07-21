@@ -17,6 +17,17 @@ namespace H6.Common
     {
       return new MethodResult<TResult> { ResultObject = result };
     }
+
+    public static MethodResult CreateError(string errorCode, string errorMessage = null)
+    {
+      return new MethodResult() { ErrorCode = errorCode, ErrorMessage = errorMessage };
+    }
+
+    public static MethodResult<TResult> CreateError<TResult>(string errorCode, string errorMessage = null)
+    {
+      return new MethodResult<TResult>() { ErrorCode = errorCode, ErrorMessage = errorMessage };
+    }
+
     public static IMethodResult CreateInternalError()
     {
       return new MethodResult() { ErrorCode = InternalError_CODE };
