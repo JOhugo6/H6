@@ -1,4 +1,5 @@
-﻿using System;
+﻿using H6.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -41,5 +42,44 @@ namespace H6.Extensions
       return arr;
 
     }
-  }
+
+		/// <summary>
+		/// Text encoder
+		/// </summary>
+		internal static readonly Encoding TEXT_ENCODER = Encoding.UTF8;
+
+		public static byte[] ToByteArray(this string input, StringFormat format)
+		{
+			if (input == null)
+			{
+				return null;
+			}
+
+			byte[] result = null;
+			switch (format)
+			{
+				// string is without any format
+				case StringFormat.UTF8Encoder:
+					{
+						result = TEXT_ENCODER.GetBytes(input);
+					}
+					break;
+				// hexadecimal string
+				case StringFormat.Hexadecimal:
+					{
+						result = input.HexStringToByteArray();
+					}
+					break;
+				// base64 string
+				case StringFormat.Base64:
+					{
+						result = Convert.FromBase64String(input);
+					}
+					break;
+				default: throw new NotImplementedException($"Not implemented {format}");
+			}
+
+			return result;
+		}
+	}
 }
