@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using H6.Extensions;
 
-namespace H6DF.Common
+namespace H6.Common
 {
 	public static partial class ReflectionHelper
 	{

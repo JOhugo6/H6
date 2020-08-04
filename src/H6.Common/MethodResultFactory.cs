@@ -38,12 +38,12 @@ namespace H6.Common
       return new MethodResult<TResult>() { ErrorCode = InternalError_CODE };
     }
 
-    public static IMethodResult CreateFrom(MethodResult source)
+    public static IMethodResult CreateFrom(IMethodResult source)
     {
       return new MethodResult(source);
     }
 
-    public static IMethodResult<TResult> CreateFrom<TResult>(MethodResult source, TResult data)
+    public static IMethodResult<TResult> CreateFrom<TResult>(IMethodResult source, TResult data)
     {
       var result = new MethodResult<TResult>(source);
       result.ResultObject = data;
