@@ -12,21 +12,27 @@ namespace H6.Common.Security.Cryptography
 
   public class CryptoService
   {
-    private ICryptoTransform _cryptoTransform;
+    private CryptoServiceProvider _cryptoServiceProvider;
 
-    public CryptoService(CryptoServiceProviderOptions options)
+		public CryptoService(CryptoServiceProviderOptions options)
     {
-      _cryptoTransform = new CryptoServiceProvider(options).GetProvider();
+			_cryptoServiceProvider = new CryptoServiceProvider(options);
     }
 
-		public byte[] Encrypt(byte[] data)
-		{
+		private byte[] Process(ICryptoTransform cryptoTransform, byte[] data)
+    {
 			var memoryStream = new MemoryStream();
-			var cryptoStream = new CryptoStream(memoryStream, _cryptoTransform, CryptoStreamMode.Write);
+			var cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write);
 			cryptoStream.Write(data, 0, data.Length);
 			cryptoStream.FlushFinalBlock();
 			cryptoStream.Close();
 			return memoryStream.ToArray();
+		}
+
+
+		public byte[] Encrypt(byte[] data)
+		{
+			return Process(_cryptoServiceProvider.GetEncryptorProvider(), data);
 		}
 
 		public byte[] Encrypt(string data)
@@ -37,12 +43,7 @@ namespace H6.Common.Security.Cryptography
 
 		public byte[] Decrypt(byte[] data)
 		{
-			var memoryStream = new MemoryStream();
-			var cryptoStream = new CryptoStream(memoryStream, _cryptoTransform, CryptoStreamMode.Write);
-			cryptoStream.Write(data, 0, data.Length);
-			cryptoStream.FlushFinalBlock();
-			cryptoStream.Close();
-			return memoryStream.ToArray();
+			return Process(_cryptoServiceProvider.GetDencryptorProvider(), data);
 		}
 
 		public string DecryptAsString(byte[] data)

@@ -23,30 +23,46 @@ namespace H6.Common.Security.Cryptography
 			_options = options;
     }
 
-		public ICryptoTransform GetProvider()
+		public ICryptoTransform GetEncryptorProvider()
+    {
+			return GetSymetricProvider().CreateEncryptor();
+		}
+
+		public ICryptoTransform GetDencryptorProvider()
 		{
+			return GetSymetricProvider().CreateDecryptor();
+		}
+
+		private SymmetricAlgorithm _symmetricAlgorithm;
+
+		private SymmetricAlgorithm GetSymetricProvider()
+		{
+			if (_symmetricAlgorithm != null) return _symmetricAlgorithm;
+
 			// Pick the provider
 			switch (_options.EncryptionAlgorithm)
 			{
-				
-
 				case EncryptionAlgorithm.Rijndael:
 					{
-						Rijndael rijndael = new RijndaelManaged();
+						var rijndael = new RijndaelManaged();
 						rijndael.Mode = CipherMode.CBC;
 						rijndael.Key = _options.Key;
 						rijndael.IV = _options.InitializationVector;
-						return rijndael.CreateEncryptor();
+						_symmetricAlgorithm = rijndael;
+						break;
 					}
 				case EncryptionAlgorithm.TripleDes:
 					TripleDES des3 = new TripleDESCryptoServiceProvider();
 					des3.Mode = CipherMode.CBC;
 					des3.Key = _options.Key;
 					des3.IV = _options.InitializationVector;
-					return des3.CreateEncryptor();
+					_symmetricAlgorithm = des3;
+					break;
 				default:
 					throw new CryptographicException($"EncryptionAlgorithm: {_options.EncryptionAlgorithm} not supported.");
 			}
+
+			return _symmetricAlgorithm;
 		}
 	}
 }
