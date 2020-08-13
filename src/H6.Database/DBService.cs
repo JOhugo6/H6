@@ -53,7 +53,7 @@ namespace H6.Database
     {
     }
 
-    protected virtual TResult LoadByIdEx<TResult>(TPrimaryKey id
+    internal virtual TResult LoadByIdEx<TResult>(TPrimaryKey id
       , TDBContext dBContext
       , Expression<Func<TDBEntity, TResult>> selector
       , bool tracking = true)
