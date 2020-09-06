@@ -49,5 +49,10 @@ namespace H6.Common
       result.ResultObject = data;
       return result;
     }
+
+    public static IMethodResult<TResult> CreateFrom<TResult>(IMethodResult source)
+    {
+      return CreateFrom(source, default(TResult));
+    }
   }
 }
