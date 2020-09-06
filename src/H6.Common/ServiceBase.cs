@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace H6.Common
 {
@@ -38,6 +39,27 @@ namespace H6.Common
     /// <summary>
     /// call method in try catch block
     /// </summary>
+    /// <param name="getResult"></param>
+    /// <param name="methodInfo">For better information in log error.</param>
+    /// <returns></returns>
+    protected async Task<IMethodResult> TryReturn(Func<Task<IMethodResult>> getResult, string methodInfo = null)
+    {
+      try
+      {
+        return await getResult();
+      }
+      catch (Exception ex)
+      {
+        var stackTrace = new System.Diagnostics.StackTrace();
+        var method = stackTrace.GetFrame(1).GetMethod();
+        Logger.LogError(ex, $"Error in method {method.Name}. Method Info: {methodInfo}");
+        return MethodResultFactory.CreateInternalError();
+      }
+    }
+
+    /// <summary>
+    /// call method in try catch block
+    /// </summary>
     /// <typeparam name="TResult"></typeparam>
     /// <param name="getResult"></param>
     /// <param name="methodInfo">For better information in log error.</param>
@@ -47,6 +69,28 @@ namespace H6.Common
       try
       {
         return getResult();
+      }
+      catch (Exception ex)
+      {
+        var stackTrace = new System.Diagnostics.StackTrace();
+        var method = stackTrace.GetFrame(1).GetMethod();
+        Logger.LogError(ex, $"Error in method {method.Name}. Method Info: {methodInfo}");
+        return MethodResultFactory.CreateInternalError<TResult>();
+      }
+    }
+
+    /// <summary>
+    /// call method in try catch block
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
+    /// <param name="getResult"></param>
+    /// <param name="methodInfo">For better information in log error.</param>
+    /// <returns></returns>
+    protected async Task<IMethodResult<TResult>> TryReturn<TResult>(Func<Task<IMethodResult<TResult>>> getResult, string methodInfo = null)
+    {
+      try
+      {
+        return await getResult();
       }
       catch (Exception ex)
       {
