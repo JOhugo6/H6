@@ -41,7 +41,7 @@ namespace H6.Database
     /// <returns></returns>
     protected async Task<IMethodResult> TryReturnDBContextAsync(Func<TDBContext, Task<IMethodResult>> func, string methodInfo = null)
     {
-      return await TryReturn(async () =>
+      return await TryReturnAsync(async () =>
       {
         using (var dbContext = DBContextFactory.EnsureDBContext())
         {
@@ -77,7 +77,7 @@ namespace H6.Database
     /// <returns></returns>
     protected async Task<IMethodResult<TResult>> TryReturnDBContextAsync<TResult>(Func<TDBContext, Task<IMethodResult<TResult>>> func, string methodInfo = null)
     {
-      return await TryReturn(async () =>
+      return await TryReturnAsync(async () =>
       {
         using (var dbContext = DBContextFactory.EnsureDBContext())
         {
@@ -116,14 +116,14 @@ namespace H6.Database
     /// <returns></returns>
     protected async Task<IMethodResult> TryReturnDBContextWithTransactionAsync(Func<TDBContext, Task<IMethodResult>> func, string methodInfo = null)
     {
-      return await TryReturn(async () =>
+      return await TryReturnAsync(async () =>
       {
         using (var dbContext = DBContextFactory.EnsureDBContext())
         {
           using (var transaction = await dbContext.Database.BeginTransactionAsync())
           {
             var result = await func(dbContext);
-            if (result.IsSuccess) transaction?.Commit();
+            if (result.IsSuccess) await transaction?.CommitAsync();
             return result;
           }
         }
@@ -143,7 +143,7 @@ namespace H6.Database
       {
         using (var dbContext = DBContextFactory.EnsureDBContext())
         {
-          using (var transaction = dbContext.Database.CurrentTransaction == null ? dbContext.Database.BeginTransaction() : null)
+          using (var transaction = dbContext.Database.BeginTransaction())
           {
             var result = func(dbContext);
             if (result.IsSuccess) transaction?.Commit();
@@ -162,14 +162,14 @@ namespace H6.Database
     /// <returns></returns>
     protected async Task<IMethodResult<TResult>> TryReturnDbContextWithTransactionAsync<TResult>(Func<TDBContext, Task<IMethodResult<TResult>>> func, string methodInfo = null)
     {
-      return TryReturn(() =>
+      return await TryReturnAsync(async () =>
       {
         using (var dbContext = DBContextFactory.EnsureDBContext())
         {
-          using (var transaction = dbContext.Database.CurrentTransaction == null ? dbContext.Database.BeginTransaction() : null)
+          using (var transaction = await dbContext.Database.BeginTransactionAsync())
           {
-            var result = func(dbContext);
-            if (result.IsSuccess) transaction?.Commit();
+            var result = await func(dbContext);
+            if (result.IsSuccess) await transaction?.CommitAsync();
             return result;
           }
         }

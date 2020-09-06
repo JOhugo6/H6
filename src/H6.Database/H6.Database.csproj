@@ -9,7 +9,7 @@
     <Product>H6.Database</Product>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryUrl>https://github.com/JOhugo6/H6</RepositoryUrl>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="H6.Common" Version="1.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="H6.Common" Version="1.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.7" />
     <PackageReference Include="System.Text.Json" Version="4.7.2" />
   </ItemGroup>
 
