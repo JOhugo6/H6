@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     
     <PackageId>H6.Common</PackageId>
-    <Version>1.0.13</Version>
+    <Version>1.0.14</Version>
     <Authors>Jiří Oulehla</Authors>
     <PackageLicenseExpression></PackageLicenseExpression>
     <RepositoryUrl>https://github.com/JOhugo6/H6</RepositoryUrl>

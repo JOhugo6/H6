@@ -42,7 +42,7 @@ namespace H6.Common
     /// <param name="getResult"></param>
     /// <param name="methodInfo">For better information in log error.</param>
     /// <returns></returns>
-    protected async Task<IMethodResult> TryReturn(Func<Task<IMethodResult>> getResult, string methodInfo = null)
+    protected async Task<IMethodResult> TryReturnAsync(Func<Task<IMethodResult>> getResult, string methodInfo = null)
     {
       try
       {
@@ -86,7 +86,7 @@ namespace H6.Common
     /// <param name="getResult"></param>
     /// <param name="methodInfo">For better information in log error.</param>
     /// <returns></returns>
-    protected async Task<IMethodResult<TResult>> TryReturn<TResult>(Func<Task<IMethodResult<TResult>>> getResult, string methodInfo = null)
+    protected async Task<IMethodResult<TResult>> TryReturnAsync<TResult>(Func<Task<IMethodResult<TResult>>> getResult, string methodInfo = null)
     {
       try
       {
